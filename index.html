@@ -5,15 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Phaniraj B N - Portfolio</title>
   <meta name="description" content="An ultra-animated, long-form portfolio built with only HTML, CSS, and JavaScript.">
+
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
   <style>
     :root{
-      --bg-0:#0b0f17; /* page */
-      --bg-1:#0e1525; /* card */
-      --bg-2:#0a1220; /* deep */
-      --txt:#e6edf6;  /* primary text */
-      --muted:#96a3b8; /* secondary text */
-      --acc:#6ae2ff;  /* accent */
-      --acc-2:#a58bff;/* accent 2 */
+      --bg-0:#0b0f17;
+      --bg-1:#0e1525;
+      --bg-2:#0a1220;
+      --txt:#e6edf6;
+      --muted:#96a3b8;
+      --acc:#6ae2ff;
+      --acc-2:#a58bff;
       --good:#2af598;
       --warn:#ffcc66;
       --bad:#ff6b6b;
@@ -29,47 +33,39 @@
       overflow-x:hidden;
     }
 
-    /* Top progress bar */
     .progress{position:fixed; inset:0 0 auto 0; height:4px; background:linear-gradient(90deg,var(--acc),var(--acc-2)); transform-origin:0 50%; transform:scaleX(0); z-index:9999; box-shadow:var(--shadow)}
 
-    /* Custom cursor hidden on touch */
     .cursor, .cursor-dot{position:fixed; pointer-events: none; z-index:99998; mix-blend-mode:screen}
     .cursor{width:40px; height:40px; border-radius:50%; border:1px solid rgba(255,255,255,.25); backdrop-filter:var(--shadow); transform:translate(-50%,-50%)}
     .cursor-dot{width:6px; height:6px; border-radius:50%; background:var(--acc); transform:translate(-50%,-50%)}
     @media (pointer:coarse){ .cursor, .cursor-dot{display:none} }
 
-    /* Section structure */
     section{position:relative; padding:120px 24px}
     .wrap{max-width:1200px; margin:0 auto}
 
-    /* Magnetic buttons */
-    .btn{display:inline-flex; align-items:center; gap:.6rem; padding:14px 20px; border-radius:999px; border:1px solid rgba(255,255,255,.1); background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); color:var(--txt); text-decoration:none; transition:transform .15s ease, box-shadow .2s ease; will-change:transform; box-shadow:0 6px 20px rgba(0,0,0,.3)}
+    .btn{display:inline-flex; align-items:center; gap:.6rem; padding:14px 20px; border-radius:999px; border:1px solid rgba(255,255,255,.1); background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); color:var(--txt); text-decoration:none; transition:transform .15s ease, box-shadow .2s ease; will-change:transform; box-shadow:0 6px 20px rgba(0,0,0,.3); cursor:pointer; font-size:16px}
     .btn:hover{box-shadow:0 10px 30px rgba(0,0,0,.45)}
     .btn.primary{background:linear-gradient(90deg,var(--acc),var(--acc-2)); color:#001018; font-weight:700}
+    .btn:disabled{opacity:.6; cursor:not-allowed; pointer-events:none}
 
-    /* Hero */
-    .hero{min-height:100svh; display:grid; place-items:center; padding-top:140px; padding-bottom:160px}
+    .hero{min-height:100svh; display:grid; place-items:center; padding-top:140px; padding-bottom:160px; margin-bottom: 0px;}
     .hero .grid{display:grid; grid-template-columns:1.25fr 1fr; gap:40px}
     .hero h1{font-size:clamp(42px,6vw,88px); line-height:1.05; margin:0}
     .hero p{color:var(--muted); font-size:clamp(16px,2.2vw,20px)}
     .tag{display:inline-block; padding:6px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); color:var(--acc); font-weight:600}
 
-    /* Parallax card */
     .tilt{perspective:1000px}
     .card3d{border-radius:var(--radius); background:linear-gradient(180deg,#0f182a,#0a0f1d); padding:24px; box-shadow:var(--shadow); transform-style:preserve-3d; border:1px solid rgba(255,255,255,.06); position:relative; overflow:hidden}
     .card3d::after{content:""; position:absolute; inset:-40% -40% auto auto; width:70%; height:70%; background:radial-gradient(closest-side, rgba(106,226,255,.25), transparent); transform:translateZ(60px) rotate(15deg)}
 
-    /* Sections */
     h2{font-size:clamp(28px,4.2vw,48px); margin:0 0 16px 0}
     .muted{color:var(--muted)}
 
-    /* Timeline */
     .timeline{position:relative; margin:30px 0 0 0}
     .timeline::before{content:""; position:absolute; left:18px; top:0; bottom:0; width:2px; background:linear-gradient(var(--acc), transparent)}
     .t-item{position:relative; padding:0 0 26px 54px}
     .t-item::before{content:""; position:absolute; left:9px; top:4px; width:18px; height:18px; border-radius:50%; background:linear-gradient(90deg,var(--acc),var(--acc-2)); box-shadow:0 0 0 4px rgba(106,226,255,.15)}
 
-    /* Project grid */
     .grid{display:grid; gap:22px}
     .grid.cols-3{grid-template-columns:repeat(3,1fr)}
     .project{border:1px solid rgba(255,255,255,.08); background:linear-gradient(180deg,#0f1627,#0d1322); border-radius:18px; overflow:hidden; box-shadow:var(--shadow); position:relative}
@@ -78,45 +74,150 @@
     .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px}
     .chip{padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); color:var(--muted); font-size:12px}
 
-    /* Sticky aside (skills) */
     .sticky{position:sticky; top:120px}
     .skills{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px}
     .skill{padding:12px 14px; border-radius:14px; background:linear-gradient(180deg,#0f182a,#0c1423); border:1px solid rgba(255,255,255,.06)}
     .bar{height:6px; background:#0b1324; border-radius:999px; overflow:hidden; margin-top:8px}
     .bar > i{display:block; height:100%; background:linear-gradient(90deg,var(--good),var(--acc)); border-radius:999px; transform-origin:left}
 
-    /* Reveal */
     .reveal{opacity:0; transform:translateY(24px); filter:blur(6px)}
     .reveal.in{opacity:1; transform:none; filter:none; transition:opacity .8s ease, transform .8s cubic-bezier(.2,.65,.14,1), filter .8s}
 
-    /* Gallery */
     .masonry{columns:3 240px; column-gap:18px}
     .masonry img{width:100%; display:block; margin:0 0 18px 0; border-radius:16px; border:1px solid rgba(255,255,255,.08); box-shadow:var(--shadow); transition:transform .2s}
     .masonry img:hover{transform:scale(1.02)}
 
-    /* Testimonial cards with gooey badges */
     .goo{filter:url(#gooey)}
     .badge{display:inline-block; padding:8px 12px; border-radius:999px; background:linear-gradient(90deg,var(--acc),var(--acc-2)); color:#001018; font-weight:700}
 
-    /* Contact */
+    /* ── Contact form ── */
     form{display:grid; gap:14px}
-    input, textarea{padding:14px 16px; border-radius:14px; border:1px solid rgba(255,255,255,.1); background:rgba(255,255,255,.03); color:var(--txt); outline:none}
+    input, textarea{
+      padding:14px 16px; border-radius:14px; border:1px solid rgba(255,255,255,.1);
+      background:rgba(255,255,255,.03); color:var(--txt); outline:none;
+      font:inherit; transition:border-color .2s;
+    }
     input:focus, textarea:focus{border-color:var(--acc)}
 
-    /* Footer */
-    footer{padding:40px 24px; text-align:center; color:var(--muted)}
+    /* ── Toast notification ── */
+    #toast{
+      position:fixed; bottom:32px; left:50%; transform:translateX(-50%) translateY(120px);
+      padding:16px 28px; border-radius:999px;
+      display:flex; align-items:center; gap:10px;
+      font-weight:600; font-size:15px;
+      z-index:99999; pointer-events:none;
+      transition:transform .5s cubic-bezier(.2,.65,.14,1), opacity .4s;
+      opacity:0;
+      backdrop-filter:blur(12px);
+    }
+    #toast.show{transform:translateX(-50%) translateY(0); opacity:1}
+    #toast.success{background:linear-gradient(90deg, rgba(42,245,152,.15), rgba(106,226,255,.12)); border:1px solid rgba(42,245,152,.4); color:var(--good)}
+    #toast.error{background:linear-gradient(90deg, rgba(255,107,107,.15), rgba(255,107,107,.08)); border:1px solid rgba(255,107,107,.4); color:var(--bad)}
 
+    /* Spinner inside button */
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .spinner{width:16px; height:16px; border:2px solid rgba(0,16,24,.3); border-top-color:#001018; border-radius:50%; animation:spin .7s linear infinite; display:inline-block}
+
+    footer{padding:40px 24px; text-align:center; color:var(--muted)}
     .wrap{margin-top: 30px;}
 
-    /* Responsive */
+    /* ── Hamburger nav (mobile only) ── */
+    #nav{
+      position:fixed; top:0; left:0; right:0; z-index:9000;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:16px 20px;
+      background:rgba(11,15,23,0); backdrop-filter:blur(0px);
+      transition:background .3s, backdrop-filter .3s;
+      pointer-events:none;
+    }
+    #nav.scrolled{background:rgba(11,15,23,.85); backdrop-filter:blur(14px); pointer-events:all}
+    #nav-logo{font-weight:700; color:var(--acc); font-size:18px; letter-spacing:.04em; text-decoration:none; pointer-events:all}
+    #nav-links{display:flex; gap:24px; list-style:none; margin:0; padding:0}
+    #nav-links a{color:var(--muted); text-decoration:none; font-size:14px; transition:color .2s}
+    #nav-links a:hover{color:var(--txt)}
+    #burger{display:none; flex-direction:column; gap:5px; cursor:pointer; padding:6px; pointer-events:all; background:none; border:none}
+    #burger span{display:block; width:24px; height:2px; background:var(--txt); border-radius:2px; transition:transform .3s, opacity .3s}
+    #burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    #burger.open span:nth-child(2){opacity:0}
+    #burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+    /* Mobile drawer */
+    #drawer{
+      position:fixed; inset:0; z-index:8999;
+      background:rgba(10,13,22,.97); backdrop-filter:blur(20px);
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:36px;
+      transform:translateX(100%); transition:transform .4s cubic-bezier(.2,.65,.14,1);
+    }
+    #drawer.open{transform:none}
+    #drawer a{color:var(--txt); text-decoration:none; font-size:clamp(28px,8vw,42px); font-weight:700; letter-spacing:-.02em; transition:color .2s}
+    #drawer a:hover{color:var(--acc)}
+
+    /* ── Tablet: 768–980px ── */
     @media (max-width:980px){
+      section{padding:80px 20px}
+      .hero{padding-top:110px; padding-bottom:100px}
       .hero .grid{grid-template-columns:1fr}
       .sticky{position:relative; top:auto}
+      #skills .wrap > div:first-child + div{margin-top:0}
+      #skills .wrap{grid-template-columns:1fr !important}
+      .grid.cols-3{grid-template-columns:repeat(2,1fr)}
+      .masonry{columns:2 200px}
+    }
+
+    /* ── Mobile: ≤600px ── */
+    @media (max-width:600px){
+      /* Show hamburger, hide desktop links */
+      #burger{display:flex}
+      #nav-links{display:none}
+      #nav{pointer-events:all}
+
+      section{padding:64px 16px}
+      .hero{padding-top:90px; padding-bottom:80px; min-height:100svh}
+      .hero .grid{grid-template-columns:1fr; gap:28px}
+      .hero h1{font-size:clamp(36px,10vw,56px)}
+      .hero p{font-size:15px}
+
+      /* Hero CTA buttons stack on very small */
+      .hero .grid > div > div[style*="display:flex"]{flex-wrap:wrap}
+
+      /* Skills section single col */
+      #skills .wrap{grid-template-columns:1fr !important; gap:24px}
+      .skills{grid-template-columns:repeat(2,1fr)}
+
+      /* Projects & testimonials single col */
+      .grid.cols-3{grid-template-columns:1fr}
+
+      /* Gallery single col */
+      .masonry{columns:1}
+
+      /* Contact form: name+email stacked */
+      form > div[style*="grid-template-columns:1fr 1fr"]{
+        grid-template-columns:1fr !important;
+      }
+
+      /* Toast smaller on mobile */
+      #toast{width:90%; text-align:center; border-radius:16px; font-size:13px; padding:14px 18px; bottom:20px}
+
+      /* Card3d — disable tilt on touch */
+      .card3d{transform:none !important}
+
+      /* Footer smaller */
+      footer{font-size:13px; padding:28px 16px}
+
+      /* Fix tag wrapping */
+      .tag{font-size:12px; padding:5px 10px}
+    }
+
+    /* ── Very small phones: ≤380px ── */
+    @media (max-width:380px){
+      .skills{grid-template-columns:1fr}
+      .hero h1{font-size:32px}
+      .chips{gap:6px}
+      .chip{font-size:11px; padding:4px 8px}
     }
   </style>
 </head>
 <body>
-  <!-- SVG filters (gooey) -->
   <svg width="0" height="0" style="position:absolute">
     <defs>
       <filter id="gooey">
@@ -127,20 +228,42 @@
     </defs>
   </svg>
 
-  <!-- top scroll progress -->
-  <div class="progress" id="progress"></div>
+  <!-- Mobile nav -->
+  <nav id="nav">
+    <a id="nav-logo" href="#home">PBN</a>
+    <ul id="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button id="burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
 
-  <!-- custom cursors -->
+  <!-- Mobile drawer -->
+  <div id="drawer">
+    <a href="#about"    onclick="closeDrawer()">About</a>
+    <a href="#skills"   onclick="closeDrawer()">Skills</a>
+    <a href="#projects" onclick="closeDrawer()">Projects</a>
+    <a href="#gallery"  onclick="closeDrawer()">Gallery</a>
+    <a href="#contact"  onclick="closeDrawer()">Contact</a>
+  </div>
+
+  <div class="progress" id="progress"></div>
   <div class="cursor" id="cursor"></div>
   <div class="cursor-dot" id="cursorDot"></div>
 
-  <!-- Hero with canvas text-particles background -->
+  <!-- Toast -->
+  <div id="toast"></div>
+
   <header id="home" class="hero">
     <canvas id="scene" style="position:absolute; inset:0; width:100%; height:100%; z-index:-1"></canvas>
     <div class="wrap grid">
       <div class="reveal">
         <span class="tag">Full‑Stack Developer • Python • React • Django</span>
-        <h1>Hi, I’m <span style="background:linear-gradient(90deg,var(--acc),var(--acc-2)); -webkit-background-clip:text; background-clip:text; color:transparent">Phaniraj B N</span>.<br/>I build delightful, resilient web experiences.</h1>
+        <h1>Hi, I'm <span style="background:linear-gradient(90deg,var(--acc),var(--acc-2)); -webkit-background-clip:text; background-clip:text; color:transparent">Phaniraj B N</span>.<br/>I build delightful, resilient web experiences.</h1>
         <p>Certified Python Full‑Stack Developer & Freelancer. I love crafting usable, performant UIs with clean APIs — and shipping fast.</p>
         <div style="display:flex; gap:12px; margin-top:20px">
           <a class="btn primary magnet" href="#contact">Hire me</a>
@@ -150,10 +273,11 @@
       <div class="tilt reveal">
         <div class="card3d" id="tiltCard">
           <h3 style="margin:0 0 6px 0">Now</h3>
-          <p class="muted" style="margin:0 0 14px 0">Freelance web dedveloper</p>
+          <p class="muted" style="margin:0 0 14px 0">Freelance web developer</p>
           <ul style="margin:0; padding:0 0 0 18px; line-height:1.9">
-            <li>6+ months of full‑stack experience</li>
+            <li>2+ years of full‑stack experience</li>
             <li>Stack: HTML, CSS, JS, React, Redux, Python, Django, MySQL</li>
+            <li>MERN & PERN STACK</li>
             <li>Focus: DX, performance, accessibility, testing</li>
           </ul>
           <div style="display:flex; gap:10px; margin-top:16px">
@@ -165,15 +289,13 @@
     </div>
   </header>
 
-  <!-- About -->
   <section id="about">
     <div class="wrap">
       <h2 class="reveal">About</h2>
-      <p class="muted reveal" style="max-width:820px">I’m a developer who enjoys turning complex ideas into simple, beautiful interfaces. I care about clean architecture and delightful micro‑interactions. Outside code, I’m curious about rainforest ecology and sustainable farming — I love shipping products that are good for people and the planet.</p>
+      <p class="muted reveal" style="max-width:820px">I'm a developer who enjoys turning complex ideas into simple, beautiful interfaces. I care about clean architecture and delightful micro‑interactions. Outside code, I'm curious about rainforest ecology and sustainable farming — I love shipping products that are good for people and the planet.</p>
     </div>
   </section>
 
-  <!-- Skills (sticky) + Experience (timeline) -->
   <section id="skills">
     <div class="wrap grid" style="grid-template-columns: 1fr 1.4fr; gap:32px">
       <aside class="sticky reveal">
@@ -205,7 +327,7 @@
           </div>
           <div class="t-item">
             <h3 style="margin:0">Python Full‑Stack Certification — Besant</h3>
-            <p class="muted" style="margin:4px 0 10px 0">Mar 2024 – Present</p>
+            <p class="muted" style="margin:4px 0 10px 0">Jan 2025 – Present</p>
             <ul style="margin:0; padding-left:18px">
               <li>Built capstone: project tracker with auth, role‑based access, and CI.</li>
               <li>Practiced database design, ORM modeling, and API testing.</li>
@@ -216,12 +338,10 @@
     </div>
   </section>
 
-  <!-- Projects -->
   <section id="projects">
     <div class="wrap">
       <h2 class="reveal">Projects</h2>
       <div class="grid cols-3">
-        <!-- Example project cards -->
         <article class="project reveal">
           <div class="thumb"></div>
           <div class="p-body">
@@ -263,12 +383,10 @@
     </div>
   </section>
 
-  <!-- Gallery -->
   <section id="gallery">
     <div class="wrap">
       <h2 class="reveal">Gallery</h2>
       <div class="masonry reveal">
-        <!-- Placeholder gradients as images -->
         <img alt="gradient" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'%3E%3Cdefs%3E%3CradialGradient id='g' cx='30%25' cy='20%25'%3E%3Cstop stop-color='%236ae2ff'/%3E%3Cstop offset='1' stop-color='%230b0f17'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E"/>
         <img alt="gradient" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='1200'%3E%3Cdefs%3E%3CradialGradient id='g' cx='70%25' cy='20%25'%3E%3Cstop stop-color='%23a58bff'/%3E%3Cstop offset='1' stop-color='%230b0f17'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E"/>
         <img alt="gradient" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='900'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='80%25'%3E%3Cstop stop-color='%232af598'/%3E%3Cstop offset='1' stop-color='%230b0f17'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%23g)'/%3E%3C/svg%3E"/>
@@ -276,7 +394,6 @@
     </div>
   </section>
 
-  <!-- Testimonials -->
   <section id="testimonials">
     <div class="wrap">
       <h2 class="reveal">Words</h2>
@@ -284,21 +401,21 @@
         <div class="project reveal">
           <div class="p-body">
             <span class="badge goo">Collaboration</span>
-            <p style="margin-top:10px">“Phaniraj delivers fast and communicates clearly. Our sprint velocity jumped immediately.”</p>
+            <p style="margin-top:10px">"Phaniraj delivers fast and communicates clearly. Our sprint velocity jumped immediately."</p>
             <p class="muted" style="margin:0">— Product Lead</p>
           </div>
         </div>
         <div class="project reveal">
           <div class="p-body">
             <span class="badge goo">Quality</span>
-            <p style="margin-top:10px">“Pixel‑perfect and performant. Accessibility wasn’t an afterthought — it shipped day one.”</p>
+            <p style="margin-top:10px">"Pixel‑perfect and performant. Accessibility wasn't an afterthought — it shipped day one."</p>
             <p class="muted" style="margin:0">— Design Manager</p>
           </div>
         </div>
         <div class="project reveal">
           <div class="p-body">
             <span class="badge goo">Ownership</span>
-            <p style="margin-top:10px">“Owns the problem, not just the ticket. Pragmatic and proactive.”</p>
+            <p style="margin-top:10px">"Owns the problem, not just the ticket. Pragmatic and proactive."</p>
             <p class="muted" style="margin:0">— Engineering Head</p>
           </div>
         </div>
@@ -310,14 +427,18 @@
   <section id="contact">
     <div class="wrap">
       <h2 class="reveal">Contact</h2>
-      <p class="muted reveal">Mail: phanirajbn152@gmail.com • Phone: +91‑9740873314</p>
-      <form class="reveal" onsubmit="event.preventDefault(); alert('Thanks! I\'ll get back to you soon.'); this.reset();">
+      <p class="muted reveal">
+        <a href="mailto:phanirajbn152@gmail.com" style="color:var(--acc)">phanirajbn152@gmail.com</a>
+        &nbsp;•&nbsp;
+        <a href="tel:9740873314" style="color:var(--acc)">+91‑9740873314</a>
+      </p>
+      <form class="reveal" id="contactForm">
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
-          <input aria-label="Name" placeholder="Your name" required>
-          <input type="email" aria-label="Email" placeholder="Your email" required>
+          <input id="from_name" aria-label="Name" placeholder="Your name" required>
+          <input id="reply_to" type="email" aria-label="Email" placeholder="Your email" required>
         </div>
-        <textarea aria-label="Message" placeholder="Tell me a bit about your project" rows="5" required></textarea>
-        <button class="btn primary magnet" type="submit">Send message</button>
+        <textarea id="message" aria-label="Message" placeholder="Tell me a bit about your project" rows="5" required></textarea>
+        <button class="btn primary magnet" type="submit" id="sendBtn">Send message</button>
       </form>
     </div>
   </section>
@@ -327,22 +448,73 @@
   </footer>
 
   <script>
-    /* ===== Helper: clamp/lerp ===== */
+    
+    const EMAILJS_PUBLIC_KEY  = 'WqtkxRsLEsRYSwowL';   
+    const EMAILJS_SERVICE_ID  = 'service_gfzsl1a';   
+    const EMAILJS_TEMPLATE_ID = 'template_j6w9slc';  
+
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+
+    /* ─── Toast helper ─────────────────────────────────────────────────── */
+    function showToast(msg, type='success'){
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = `show ${type}`;
+      clearTimeout(t._timer);
+      t._timer = setTimeout(()=>{ t.className = ''; }, 4200);
+    }
+
+    /* ─── Form submit ──────────────────────────────────────────────────── */
+    document.getElementById('contactForm').addEventListener('submit', async function(e){
+      e.preventDefault();
+
+      const btn  = document.getElementById('sendBtn');
+      const name = document.getElementById('from_name').value.trim();
+      const email= document.getElementById('reply_to').value.trim();
+      const msg  = document.getElementById('message').value.trim();
+
+      // Guard: keys not yet configured
+      if(EMAILJS_PUBLIC_KEY === 'YOUR_PUBLIC_KEY'){
+        showToast('⚙️ EmailJS not configured yet — see code comments', 'error');
+        return;
+      }
+
+      // Loading state
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> Sending…';
+
+      try {
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+          from_name: name,
+          reply_to:  email,
+          message:   msg
+        });
+        showToast('✅ Message sent! I\'ll reply soon.');
+        this.reset();
+      } catch(err){
+        console.error('EmailJS error:', err);
+        showToast('❌ Couldn\'t send — please email me directly.', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = 'Send message';
+      }
+    });
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       All the original animations below — untouched
+    ═══════════════════════════════════════════════════════════════════════ */
     const lerp=(a,b,t)=>a+(b-a)*t;
 
-    /* ===== Custom cursor ===== */
     const cursor=document.getElementById('cursor');
     const dot=document.getElementById('cursorDot');
     let cx=0, cy=0, dx=0, dy=0;
     window.addEventListener('pointermove',e=>{cx=e.clientX; cy=e.clientY});
     (function loop(){ dx=lerp(dx,cx,0.18); dy=lerp(dy,cy,0.18); cursor.style.left=dx+"px"; cursor.style.top=dy+"px"; dot.style.left=cx+"px"; dot.style.top=cy+"px"; requestAnimationFrame(loop)})();
 
-    /* ===== Scroll progress bar ===== */
     const progress=document.getElementById('progress');
     const setProgress=()=>{ const h=document.documentElement; const t=h.scrollTop; const d=h.scrollHeight-h.clientHeight; const p=d? t/d : 0; progress.style.transform=`scaleX(${p})`; };
     document.addEventListener('scroll', setProgress, {passive:true}); setProgress();
 
-    /* ===== Magnetic buttons ===== */
     const magnets=[...document.querySelectorAll('.magnet')];
     magnets.forEach(btn=>{
       btn.addEventListener('mousemove', e=>{
@@ -354,38 +526,30 @@
       btn.addEventListener('mouseleave',()=>btn.style.transform='translate(0,0)');
     });
 
-    /* ===== 3D tilt card ===== */
     (function(){
       const card=document.getElementById('tiltCard');
       if(!card)return;
-      let rx=0, ry=0, tx=0, ty=0;
       card.addEventListener('mousemove', e=>{
         const r=card.getBoundingClientRect();
         const px=(e.clientX-r.left)/r.width - .5;
         const py=(e.clientY-r.top)/r.height - .5;
-        rx=py*10; ry=-px*14; card.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg)`;});
+        const rx=py*10; const ry=-px*14; card.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg)`;});
       card.addEventListener('mouseleave',()=> card.style.transform='rotateX(0) rotateY(0)');
     })();
 
-    /* ===== Reveal on scroll ===== */
     const io=new IntersectionObserver((entries)=>{
       for(const e of entries){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }
     }, {threshold:0.15});
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-    /* ===== Canvas hero: Text particle morph (no libraries) ===== */
     const canvas=document.getElementById('scene');
     const ctx=canvas.getContext('2d');
     let W=canvas.width=innerWidth*devicePixelRatio, H=canvas.height=innerHeight*devicePixelRatio;
-    let scale=1/devicePixelRatio;
     const DPR=devicePixelRatio||1; canvas.style.imageRendering='crisp-edges';
-
     const phraseA='PHANIRAJ';
     const phraseB='BUILD • SHIP • REPEAT';
-
     const off=document.createElement('canvas');
     const octx=off.getContext('2d');
-
     function sampleTextPoints(text, size){
       off.width=W; off.height=H;
       octx.clearRect(0,0,W,H);
@@ -396,40 +560,25 @@
       octx.fillText(text, W/2, H/2);
       const data=octx.getImageData(0,0,W,H).data;
       const pts=[]; const gap=Math.max(4, Math.floor(8*DPR));
-      for(let y=0;y<H;y+=gap){
-        for(let x=0;x<W;x+=gap){
-          const i=(y*W+x)*4+3; // alpha
-          if(data[i]>128){ pts.push({x,y}); }
-        }
-      }
+      for(let y=0;y<H;y+=gap){ for(let x=0;x<W;x+=gap){ const i=(y*W+x)*4+3; if(data[i]>128){ pts.push({x,y}); } } }
       return pts;
     }
-
     let targetA=sampleTextPoints(phraseA, Math.floor(220*DPR));
     let targetB=sampleTextPoints(phraseB, Math.floor(46*DPR));
-
     const N = Math.max(targetA.length, targetB.length);
-    const particles = new Array(N).fill(0).map(()=>({
-      x:Math.random()*W, y:Math.random()*H,
-      vx:0, vy:0,
-      size: Math.random()*1.1 + .9,
-      hue: Math.random()*60+180
-    }));
-
-    let morphT=0; // 0..1 between A and B
+    const particles = new Array(N).fill(0).map(()=>({ x:Math.random()*W, y:Math.random()*H, vx:0, vy:0, size: Math.random()*1.1 + .9, hue: Math.random()*60+180 }));
+    let morphT=0;
     function draw(){
       ctx.clearRect(0,0,W,H);
       ctx.fillStyle='rgba(6,10,18,.35)';
       ctx.fillRect(0,0,W,H);
-
       for(let i=0;i<N;i++){
         const p=particles[i];
         const a=targetA[i%targetA.length];
         const b=targetB[i%targetB.length];
         const tx=lerp(a.x,b.x,morphT);
         const ty=lerp(a.y,b.y,morphT);
-        p.vx+= (tx-p.x)*0.02;
-        p.vy+= (ty-p.y)*0.02;
+        p.vx+= (tx-p.x)*0.02; p.vy+= (ty-p.y)*0.02;
         p.vx*=0.85; p.vy*=0.85; p.x+=p.vx; p.y+=p.vy;
         ctx.beginPath();
         ctx.fillStyle=`hsla(${p.hue},100%,60%,.9)`;
@@ -439,29 +588,41 @@
       requestAnimationFrame(draw);
     }
     draw();
-
-    // morph on scroll (cool + subtle)
-    const morphOnScroll=()=>{
-      const max=window.innerHeight*1.2; // early morph end
-      morphT = Math.min(1, Math.max(0, window.scrollY / max));
-    }
+    const morphOnScroll=()=>{ const max=window.innerHeight*1.2; morphT = Math.min(1, Math.max(0, window.scrollY / max)); }
     document.addEventListener('scroll', morphOnScroll, {passive:true});
-
-    // resize handling
     window.addEventListener('resize',()=>{
-      W=canvas.width=innerWidth*DPR; H=canvas.height=innerHeight*DPR; scale=1/DPR;
+      W=canvas.width=innerWidth*DPR; H=canvas.height=innerHeight*DPR;
       targetA=sampleTextPoints(phraseA, Math.floor(130*DPR));
       targetB=sampleTextPoints(phraseB, Math.floor(46*DPR));
     });
 
-    /* ===== Masonry lazy animation ===== */
     document.querySelectorAll('.masonry img').forEach(img=>{
       img.style.opacity='0'; img.style.transform='translateY(10px)';
       img.onload=()=>{ img.style.transition='opacity .6s ease, transform .6s ease'; img.style.opacity='1'; img.style.transform='none'; };
     });
 
-    /* ===== Year ===== */
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* ── Mobile nav: scroll-aware background ── */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', ()=>{
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, {passive:true});
+
+    /* ── Hamburger toggle ── */
+    const burger  = document.getElementById('burger');
+    const drawer  = document.getElementById('drawer');
+    function closeDrawer(){
+      burger.classList.remove('open');
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    burger.addEventListener('click', ()=>{
+      const open = burger.classList.toggle('open');
+      drawer.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    window.addEventListener('resize', ()=>{ if(window.innerWidth > 600) closeDrawer(); });
   </script>
 </body>
 </html>
