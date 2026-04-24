@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="assets/pharieaLabslogo.png" type="x/icon" />
   <title>Phaniraj B N - Portfolio</title>
   <meta name="description" content="An ultra-animated, long-form portfolio built with only HTML, CSS, and JavaScript.">
 
@@ -466,12 +467,12 @@
       pointer-events: all
     }
 
-    #nav-logo {
-      font-weight: 700;
-      color: var(--acc);
-      font-size: 18px;
-      letter-spacing: .04em;
-      text-decoration: none;
+    #nav-logo img{
+     
+      height: 40px;
+      width: 40px;
+      border-radius: 50% !important;
+      box-shadow: #6ae2ff 0px 0px 8px;
       pointer-events: all
     }
 
@@ -728,7 +729,7 @@
 
   <!-- Mobile nav -->
   <nav id="nav">
-    <a id="nav-logo" href="#home">PBN</a>
+    <a id="nav-logo" href="#home"><img src="assets/pharieaLabslogo.png" alt="Phariea Labs Logo"></a>
     <ul id="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
@@ -921,6 +922,12 @@
           background: linear-gradient(180deg, #0f1627, #0d1322);
         }
 
+        .pkg-card:hover {
+          box-shadow: var(--shadow);
+          transform: translateY(-10px);
+          transition: transform .2s ease, box-shadow .2s ease
+        }
+
         .pkg-title {
           font-size: 20px;
           font-weight: 700;
@@ -976,22 +983,24 @@
           <div class="pkg-title">E-commerce Website</div>
 
           <div class="price">Basic ₹10,999</div>
-          <div class="feat yes">✔ 10 Products</div>
-          <div class="feat no">✘ Payment Gateway</div>
+          <div class="feat yes">✔ Online Order</div>
+          <div class="feat yes">✔ Payment Gateway</div>
+          <div class="feat no">✘ Analytics</div>
 
           <div class="price">Standard ₹14,999</div>
-          <div class="feat yes">✔ 50 Products</div>
+          <div class="feat yes">✔ Admin Panel</div>
           <div class="feat yes">✔ Payment Gateway</div>
+          <div class="feat no">✘ premium UI</div>
 
           <div class="price">Premium ₹19,999</div>
-          <div class="feat yes">✔ Unlimited Products</div>
-          <div class="feat yes">✔ Admin Dashboard</div>
+          <div class="feat yes">✔ Premium UI</div>
+          <div class="feat yes">✔ SEO+admin CRUD operations</div>
           <div class="feat yes">✔ Analytics</div>
         </div>
 
         <!-- 3 Admin Panel -->
         <div class="pkg-card reveal">
-          <div class="pkg-title">Admin Panel</div>
+          <div class="pkg-title">Admin Panel(seperate)</div>
 
           <div class="price">Basic ₹7,999</div>
           <div class="feat yes">✔ Dashboard UI</div>
@@ -1012,15 +1021,18 @@
 
           <div class="price">Basic ₹6,999</div>
           <div class="feat yes">✔ Menu Page</div>
+          <div class="feat yes">✔ Contact Form + Location</div>
           <div class="feat no">✘ Online Order</div>
 
           <div class="price">Standard ₹14,999</div>
           <div class="feat yes">✔ Online Order</div>
-          <div class="feat yes">✔ Contact Form</div>
+          <div class="feat yes">✔ Admin Panel</div>
+          <div class="feat no">✘ Table Booking&</div>
 
           <div class="price">Premium ₹19,999</div>
           <div class="feat yes">✔ Table Booking</div>
-          <div class="feat yes">✔ Admin Panel</div>
+          <div class="feat yes">✔ Premium UI</div>
+          <div class="feat yes">✔ SEO</div>
         </div>
 
         <!-- 5 Hotel -->
@@ -1029,6 +1041,7 @@
 
           <div class="price">Basic ₹8,999</div>
           <div class="feat yes">✔ Room Listing</div>
+          <div class="feat yes">✔ Static Pages</div>
           <div class="feat no">✘ Booking System</div>
 
           <div class="price">Standard ₹14,999</div>
@@ -1044,13 +1057,15 @@
         <div class="pkg-card reveal">
           <div class="pkg-title">Business Website</div>
 
-          <div class="price">Basic ₹5,999</div>
-          <div class="feat yes">✔ 3 Pages</div>
+          <div class="price">Basic ₹5,999 onwards</div>
+          <div class="feat yes">✔ 5 Pages</div>
           <div class="feat no">✘ SEO</div>
 
           <div class="price">Standard ₹10,999</div>
-          <div class="feat yes">✔ 6 Pages</div>
+          <div class="feat yes">✔ Many Pages</div>
           <div class="feat yes">✔ SEO</div>
+          <div class="feat no">✘ UI design</div>
+
 
           <div class="price">Premium ₹14,999</div>
           <div class="feat yes">✔ Full Branding</div>
