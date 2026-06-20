@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" href="assets/pharieaLabslogo.png" type="x/icon" />
+  <link rel="icon" href="assets/pharieaLabslogo.png" type="image/png" />
   <title>Phaniraj B N - Portfolio</title>
   <meta name="description" content="An ultra-animated, long-form portfolio built with only HTML, CSS, and JavaScript.">
 
@@ -440,6 +440,7 @@
       color: var(--muted)
     }
 
+
     .wrap {
       margin-top: 30px;
     }
@@ -467,8 +468,8 @@
       pointer-events: all
     }
 
-    #nav-logo img{
-     
+    #nav-logo img {
+
       height: 40px;
       width: 40px;
       border-radius: 50% !important;
@@ -733,7 +734,7 @@
     <ul id="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
-      <li><a href="#projects">Projects</a></li>
+      <li><a href="#packages">Packages</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <button id="burger" aria-label="Menu">
@@ -745,7 +746,7 @@
   <div id="drawer">
     <a href="#about" onclick="closeDrawer()">About</a>
     <a href="#skills" onclick="closeDrawer()">Skills</a>
-    <a href="#projects" onclick="closeDrawer()">Projects</a>
+    <a href="#packages" onclick="closeDrawer()">Packages</a>
     <a href="#gallery" onclick="closeDrawer()">Gallery</a>
     <a href="#contact" onclick="closeDrawer()">Contact</a>
   </div>
@@ -764,7 +765,7 @@
         <span class="tag">Full‑Stack Developer • Python • React • Django</span>
         <h1>Hi, I'm <span
             style="background:linear-gradient(90deg,var(--acc),var(--acc-2)); -webkit-background-clip:text; background-clip:text; color:transparent">Phaniraj
-            B N</span>.<br />I build delightful, resilient web experiences.</h1>
+          </span><br />I build delightful, resilient web experiences.</h1>
         <p>Certified Python Full‑Stack Developer & Freelancer. I love crafting usable, performant UIs with clean APIs —
           and shipping fast.</p>
         <div style="display:flex; gap:12px; margin-top:20px">
@@ -868,35 +869,40 @@
     <div class="wrap">
       <h2 class="reveal">Projects</h2>
       <div class="grid cols-3">
-        <article class="project reveal">
-          <div class="thumb"></div>
-          <div class="p-body">
-            <h3 style="margin:0 0 6px 0">HerpIndia — Biodiversity Archive</h3>
-            <p class="muted" style="margin:0">A searchable herpetofauna dataset explorer with maps and filters.</p>
-            <div class="chips">
-              <span class="chip">React</span>
-              <span class="chip">Django</span>
-              <span class="chip">PostGIS</span>
-            </div>
+        <article class="project reveal" onclick="window.open('https://janapada.netlify.app', '_blank')">
+          <div class="thumb">
+            <img src="assets/janapada.png" alt=""
+              style="width:100%; height:100%; object-fit:cover; filter:brightness(0.9)">
           </div>
-        </article>
-        <article class="project reveal">
-          <div class="thumb"></div>
           <div class="p-body">
-            <h3 style="margin:0 0 6px 0">Portfolio Engine</h3>
-            <p class="muted" style="margin:0">Reusable components for blazing‑fast personal sites and blogs.</p>
+            <h3 style="margin:0 0 6px 0">Janapada-Restaurant</h3>
+            <p class="muted" style="margin:0">A responsive restaurant website with reservation features.</p>
             <div class="chips">
               <span class="chip">HTML</span>
               <span class="chip">CSS</span>
-              <span class="chip">JS</span>
+              <span class="chip">JavaScript</span>
             </div>
           </div>
         </article>
-        <article class="project reveal">
-          <div class="thumb"></div>
+        <article class="project reveal" onclick="window.open('https://flowspace-one.vercel.app', '_blank')">
+          <div class="thumb"> <img src="assets/flow.png" alt=""
+              style="width:100%; height:100%; object-fit:cover; filter:brightness(0.9)"></div>
           <div class="p-body">
-            <h3 style="margin:0 0 6px 0">AgroFarm</h3>
-            <p class="muted" style="margin:0">IoT‑ready dashboard for farm telemetry and irrigation planning.</p>
+            <h3 style="margin:0 0 6px 0">Flowspace</h3>
+            <p class="muted" style="margin:0">A web-based live streaming and social media platform.</p>
+            <div class="chips">
+              <span class="chip">MERN stack</span>
+              <span class="chip">webrtc, OBS</span>
+              <span class="chip">JWT</span>
+            </div>
+          </div>
+        </article>
+        <article class="project reveal" onclick="window.open('https://glowcosmetiks.netlify.app', '_blank')">
+          <div class="thumb"> <img src="assets/glow.png" alt=""
+              style="width:100%; height:100%; object-fit:cover; filter:brightness(0.9)"></div>
+          <div class="p-body">
+            <h3 style="margin:0 0 6px 0">Glow</h3>
+            <p class="muted" style="margin:0">Glow cosmetic product website with e-commerce functionality.</p>
             <div class="chips">
               <span class="chip">Charts</span>
               <span class="chip">WebSockets</span>
@@ -923,7 +929,9 @@
         }
 
         .pkg-card:hover {
-          box-shadow: var(--shadow);
+          transform: scaleX(0.3px);
+          border: 1px solid var(--acc);
+          box-shadow: var(--acc-2) 0px 0px 12px;
           transform: translateY(-10px);
           transition: transform .2s ease, box-shadow .2s ease
         }
@@ -935,16 +943,25 @@
         }
 
         .price {
-          font-size: 18px;
+          font-size: 22px;
           margin: 10px 0;
-          color: var(--acc)
+          color: var(--acc);
+
+          span {
+            font-size: 18px;
+            background-color: var(--good);
+            color: rgb(7, 3, 3);
+            padding: 2px 6px;
+            border-radius: 4px;
+
+          }
         }
 
         .feat {
           display: flex;
           align-items: center;
           gap: 8px;
-          margin: 4px 0
+          margin: 4px 0;
         }
 
         .yes {
@@ -962,17 +979,17 @@
         <div class="pkg-card reveal">
           <div class="pkg-title">Portfolio Website</div>
 
-          <div class="price">Basic ₹4,999</div>
-          <div class="feat yes">✔ 4 Pages</div>
+          <div class="price">Basic <span>₹4,999</span></div>
+          <div class="feat yes">✔ 4-5 Pages</div>
           <div class="feat yes">✔ Responsive</div>
           <div class="feat no">✘ Admin Panel</div>
 
-          <div class="price">Standard ₹7,999</div>
-          <div class="feat yes">✔ 5 Pages</div>
+          <div class="price">Standard <span>₹6,999</span></div>
+          <div class="feat yes">✔ 5-6 Pages</div>
           <div class="feat yes">✔ Animations</div>
           <div class="feat no">✘ CMS</div>
 
-          <div class="price">Premium ₹14,999</div>
+          <div class="price">Premium <span>₹12,999</span></div>
           <div class="feat yes">✔ Full Custom Design</div>
           <div class="feat yes">✔ SEO</div>
           <div class="feat yes">✔ Admin Panel</div>
@@ -982,17 +999,17 @@
         <div class="pkg-card reveal">
           <div class="pkg-title">E-commerce Website</div>
 
-          <div class="price">Basic ₹10,999</div>
+          <div class="price">Basic <span>₹8,999</span></div>
           <div class="feat yes">✔ Online Order</div>
           <div class="feat yes">✔ Payment Gateway</div>
           <div class="feat no">✘ Analytics</div>
 
-          <div class="price">Standard ₹14,999</div>
+          <div class="price">Standard <span>₹10,999</span></div>
           <div class="feat yes">✔ Admin Panel</div>
           <div class="feat yes">✔ Payment Gateway</div>
           <div class="feat no">✘ premium UI</div>
 
-          <div class="price">Premium ₹19,999</div>
+          <div class="price">Premium <span>₹16,999</span></div>
           <div class="feat yes">✔ Premium UI</div>
           <div class="feat yes">✔ SEO+admin CRUD operations</div>
           <div class="feat yes">✔ Analytics</div>
@@ -1002,15 +1019,15 @@
         <div class="pkg-card reveal">
           <div class="pkg-title">Admin Panel(seperate)</div>
 
-          <div class="price">Basic ₹7,999</div>
+          <div class="price">Basic <span>₹5,999</span></div>
           <div class="feat yes">✔ Dashboard UI</div>
           <div class="feat no">✘ Role Management</div>
 
-          <div class="price">Standard ₹9,999</div>
+          <div class="price">Standard <span>₹7,999</span></div>
           <div class="feat yes">✔ CRUD</div>
           <div class="feat yes">✔ Roles</div>
 
-          <div class="price">Premium ₹14,999</div>
+          <div class="price">Premium <span>₹12,999</span></div>
           <div class="feat yes">✔ Full System</div>
           <div class="feat yes">✔ API Integration</div>
         </div>
@@ -1019,17 +1036,17 @@
         <div class="pkg-card reveal">
           <div class="pkg-title">Restaurant Website</div>
 
-          <div class="price">Basic ₹6,999</div>
+          <div class="price">Basic <span>₹4,999</span></div>
           <div class="feat yes">✔ Menu Page</div>
           <div class="feat yes">✔ Contact Form + Location</div>
           <div class="feat no">✘ Online Order</div>
 
-          <div class="price">Standard ₹14,999</div>
+          <div class="price">Standard <span>₹8,999</span></div>
           <div class="feat yes">✔ Online Order</div>
           <div class="feat yes">✔ Admin Panel</div>
           <div class="feat no">✘ Table Booking&</div>
 
-          <div class="price">Premium ₹19,999</div>
+          <div class="price">Premium <span>₹12,999</span></div>
           <div class="feat yes">✔ Table Booking</div>
           <div class="feat yes">✔ Premium UI</div>
           <div class="feat yes">✔ SEO</div>
@@ -1039,16 +1056,16 @@
         <div class="pkg-card reveal">
           <div class="pkg-title">Hotel Booking</div>
 
-          <div class="price">Basic ₹8,999</div>
+          <div class="price">Basic <span>₹5,999</span></div>
           <div class="feat yes">✔ Room Listing</div>
           <div class="feat yes">✔ Static Pages</div>
           <div class="feat no">✘ Booking System</div>
 
-          <div class="price">Standard ₹14,999</div>
+          <div class="price">Standard <span>₹8,999</span></div>
           <div class="feat yes">✔ Booking System</div>
           <div class="feat yes">✔ Email Alerts</div>
 
-          <div class="price">Premium ₹19,999</div>
+          <div class="price">Premium <span>₹12,999</span></div>
           <div class="feat yes">✔ Full Management</div>
           <div class="feat yes">✔ Admin Panel</div>
         </div>
@@ -1057,17 +1074,17 @@
         <div class="pkg-card reveal">
           <div class="pkg-title">Business Website</div>
 
-          <div class="price">Basic ₹5,999 onwards</div>
+          <div class="price">Basic <span>₹4,999</span> onwards</div>
           <div class="feat yes">✔ 5 Pages</div>
           <div class="feat no">✘ SEO</div>
 
-          <div class="price">Standard ₹10,999</div>
+          <div class="price">Standard <span>₹8,999</span></div>
           <div class="feat yes">✔ Many Pages</div>
           <div class="feat yes">✔ SEO</div>
           <div class="feat no">✘ UI design</div>
 
 
-          <div class="price">Premium ₹14,999</div>
+          <div class="price">Premium <span>₹12,999</span></div>
           <div class="feat yes">✔ Full Branding</div>
           <div class="feat yes">✔ Lead System</div>
         </div>
